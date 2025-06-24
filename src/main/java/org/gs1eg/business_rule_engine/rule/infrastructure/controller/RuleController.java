@@ -3,7 +3,10 @@ package org.gs1eg.business_rule_engine.rule.infrastructure.controller;
 import lombok.AllArgsConstructor;
 import org.gs1eg.business_rule_engine.rule.domain.model.Rule;
 import org.gs1eg.business_rule_engine.rule.domain.service.RuleService;
+import org.gs1eg.business_rule_engine.rule.infrastructure.dto.RuleReq;
+import org.gs1eg.business_rule_engine.rule.infrastructure.dto.RuleRes;
 import org.gs1eg.business_rule_engine.shared.exceptions.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,30 +19,37 @@ import java.util.UUID;
 public class RuleController {
 
     private final RuleService service;
+    private final ModelMapper mapper;
 
 
     @GetMapping
-    public Page<Rule> all(@RequestParam(defaultValue = "0") int pageNumber,
-                          @RequestParam(defaultValue = "10") int pageSize) {
-        return service.findAll(pageNumber, pageSize);
+    public Page<RuleRes> all(@RequestParam(defaultValue = "0") int pageNumber,
+                             @RequestParam(defaultValue = "10") int pageSize) {
+        Page<Rule> rulesPage = service.findAll(pageNumber, pageSize);
+        return rulesPage.map(rule -> mapper.map(rule, RuleRes.class));
     }
 
     @GetMapping("/{id}")
-    public Rule findById(@PathVariable UUID id) {
-        return service.findById(id)
+    public RuleRes findById(@PathVariable UUID id) {
+        Rule rule = service.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
+        return mapper.map(rule, RuleRes.class);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Rule save(@RequestBody Rule rule) {
-        return service.save(rule);
+    public RuleRes save(@RequestBody RuleReq ruleReq) {
+        Rule rule = mapper.map(ruleReq, Rule.class);
+        rule = service.save(rule);
+        return mapper.map(rule, RuleRes.class);
     }
 
     @PutMapping("/{id}")
-    public Rule update(@PathVariable UUID id, @RequestBody Rule rule) {
-        rule.setId(id);
-        return service.update(rule);
+    public RuleRes update(@PathVariable UUID id, @RequestBody RuleReq ruleReq) {
+        ruleReq.setId(id);
+        Rule rule = mapper.map(ruleReq, Rule.class);
+        rule = service.update(rule);
+        return mapper.map(rule, RuleRes.class);
     }
 
     @DeleteMapping("/{id}")
