@@ -17,3 +17,11 @@ spring:
   liquibase:
     change-log: classpath:db/changelog-master.yml
     enabled: true
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.gs1eg.business_rule_engine: DEBUG
+  file:
+    name: logs/app.log

@@ -1,6 +1,7 @@
 package org.gs1eg.business_rule_engine.engine.domain.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.gs1eg.business_rule_engine.engine.domain.model.PaymentProcessingResult;
 import org.gs1eg.business_rule_engine.engine.domain.service.EngineService;
 import org.gs1eg.business_rule_engine.payment.domain.model.PaymentTransaction;
@@ -17,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 class EngineServiceImpl implements EngineService {
@@ -27,6 +29,7 @@ class EngineServiceImpl implements EngineService {
 
     @Override
     public PaymentProcessingResult processPaymentTransaction(PaymentTransaction paymentTransaction) {
+        log.info("Starting Processing for Payment Transaction: {}", paymentTransaction.getId());
         paymentTransaction.setTags(new HashSet<>());
         PaymentProcessingResult result = PaymentProcessingResult.builder()
                 .processingId(UUID.randomUUID())
@@ -34,7 +37,9 @@ class EngineServiceImpl implements EngineService {
                 .appliedRules(new LinkedList<>())
                 .paymentTransaction(paymentTransaction)
                 .build();
+        log.info("Handling Enrichment Rules for Payment Transaction: {}", paymentTransaction.getId());
         handleEnrichmentRules(result);
+        log.info("Handling Routing Rules for Payment Transaction: {}", paymentTransaction.getId());
         handleRoutingRules(result);
         return result;
     }
