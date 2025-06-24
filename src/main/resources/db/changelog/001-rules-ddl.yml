@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-rules-table
+      author: Mahmoud
+      changes:
+        - createTable:
+            tableName: rules
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: type
+                  type: VARCHAR(255)
+              - column:
+                  name: condition
+                  type: TEXT
+              - column:
+                  name: action
+                  type: TEXT
+              - column:
+                  name: priority
+                  type: INT
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
