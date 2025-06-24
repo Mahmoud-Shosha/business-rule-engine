@@ -1,5 +1,6 @@
 package org.gs1eg.business_rule_engine.payment.domain.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -7,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Data
+@Builder
 public class PaymentTransaction {
 
     private UUID id;

@@ -1,11 +1,15 @@
 package org.gs1eg.business_rule_engine.rule.domain.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class Rule {
 
     private UUID id;
