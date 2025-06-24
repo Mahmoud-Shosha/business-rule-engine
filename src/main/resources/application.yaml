@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: business-rule-engine
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/business_rule_engine
+    username: changeit
+    password: changeit
+    hikari:
+      maximum-pool-size: 2
+      minimum-idle: 1
+      connection-test-query: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
