@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/rules")
+@RequestMapping("/api/v1/rules")
 public class RuleController {
 
     private final RuleService service;

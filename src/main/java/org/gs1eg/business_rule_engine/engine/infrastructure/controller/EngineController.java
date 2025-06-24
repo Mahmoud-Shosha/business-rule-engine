@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/engine")
+@RequestMapping("/api/v1/engine")
 public class EngineController {
 
     private final EngineService service;
