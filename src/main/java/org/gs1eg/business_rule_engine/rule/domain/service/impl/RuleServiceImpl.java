@@ -2,12 +2,14 @@ package org.gs1eg.business_rule_engine.rule.domain.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.gs1eg.business_rule_engine.rule.domain.model.Rule;
+import org.gs1eg.business_rule_engine.rule.domain.model.RuleType;
 import org.gs1eg.business_rule_engine.rule.domain.repo.RuleRepo;
 import org.gs1eg.business_rule_engine.rule.domain.service.RuleService;
 import org.gs1eg.business_rule_engine.rule.domain.validator.RuleValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,4 +45,8 @@ class RuleServiceImpl implements RuleService {
         repo.deleteById(id);
     }
 
+    @Override
+    public List<Rule> findByTypeOrderByPriorityAsc(RuleType type) {
+        return repo.findByTypeOrderByPriorityAsc(type);
+    }
 }

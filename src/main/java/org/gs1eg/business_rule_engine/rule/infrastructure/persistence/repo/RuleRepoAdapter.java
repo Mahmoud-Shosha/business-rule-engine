@@ -2,6 +2,7 @@ package org.gs1eg.business_rule_engine.rule.infrastructure.persistence.repo;
 
 import lombok.RequiredArgsConstructor;
 import org.gs1eg.business_rule_engine.rule.domain.model.Rule;
+import org.gs1eg.business_rule_engine.rule.domain.model.RuleType;
 import org.gs1eg.business_rule_engine.rule.domain.repo.RuleRepo;
 import org.gs1eg.business_rule_engine.rule.infrastructure.persistence.entity.RuleEntity;
 import org.modelmapper.ModelMapper;
@@ -10,8 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -51,5 +54,13 @@ class RuleRepoAdapter implements RuleRepo {
     @Override
     public void deleteById(UUID id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public List<Rule> findByTypeOrderByPriorityAsc(RuleType type) {
+        List<RuleEntity> ruleEntities = repo.findByTypeOrderByPriorityAsc(type);
+        return ruleEntities.stream()
+                .map(entity -> mapper.map(entity, Rule.class))
+                .collect(Collectors.toList());
     }
 }
