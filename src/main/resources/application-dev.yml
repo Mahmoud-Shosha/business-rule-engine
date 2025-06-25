@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/business_rule_engine
+    username: changeit
+    password: changeit
+    hikari:
+      maximum-pool-size: 2
+      minimum-idle: 1
+      connection-test-query: SELECT 1
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.gs1eg.business_rule_engine: DEBUG
