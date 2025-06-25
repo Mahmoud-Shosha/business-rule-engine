@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/001-rules-ddl.yml
+  - include:
+      file: db/changelog/002-rules-dml.yml
