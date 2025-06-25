@@ -56,7 +56,7 @@ cd business-rule-engine
 
 ### 2. Run the Database
 ```bash
-docker-compose -f postrges-compose.yml up
+docker-compose -f postgres-compose.yml up -d
 ```
 
 ### 3. Build the Project
