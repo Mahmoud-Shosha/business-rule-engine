@@ -50,7 +50,7 @@ src/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-repo/business-rule-engine.git
+git clone https://github.com/Mahmoud-Shosha/business-rule-engine.git
 cd business-rule-engine
 ```
 
